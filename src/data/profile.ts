@@ -1,5 +1,5 @@
 export const profile = {
-  name: "Justin Smith",
-  title: "Photographer & Designer",
-  bio: "I'm a photographer and designer based in New York City. I specialize in creating beautiful, high-quality photos and designs for my clients.",
+  name: "Adam Matthiesen & Alox Leyva",
+  title: "Hobbiest Photographers",
+  bio: "We both have a love for Photography which let to us creating our website to share our work, and offer our services to anyone interested! We do all sorts of different type of Photography!",
 }
