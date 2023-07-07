@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Page.astro';
+import Container from '../components/Container.astro';
+import WorkItemPreview from '../components/WorkItemPreview.astro';
+import ProfileHeader from '../components/ProfileHeader.astro';
+
+const seo = {
+  title: 'Pro File | Template by Little Sticks',
+  description: 'Page Description',
+};
+
+const work = await Astro.glob('./work/*.{md,mdx}');
+---
+
+<style>
+  .home-work__container {
+    padding: var(--space-xl) 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: var(--space-s);
+  }
+</style>
+
+<Layout seo={seo} noHeader>
+  <ProfileHeader />
+  <Container bottomPadding>
+    <article>
+      <div class="home-work__container">
+        {work.map((item) => <WorkItemPreview item={item} />)}
+      </div>
+    </article>
+  </Container>
+</Layout>
+

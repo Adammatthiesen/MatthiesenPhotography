@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Page.astro'
+import Container from '../../components/Container.astro';
+import WorkItemPreview from '../../components/WorkItemPreview.astro';
+import {generateCategoryData} from '../../utils/helpers.js'
+
+export async function getStaticPaths() {
+  const allWorks = await Astro.glob('../work/*.{mdx,md}');
+  const sortedWorks = allWorks.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+  const allCategoriesUnique = new Set();
+
+  sortedWorks.forEach(post => {
+    if(post.frontmatter.category) {
+      allCategoriesUnique.add(post.frontmatter.category);
+    }
+  })
+  const allCategoriesData = generateCategoryData(allCategoriesUnique);
+   // map through the categories array
+  return allCategoriesData.map((category) => {
+    // filter the works that match the given category
+    const works = sortedWorks.filter((post) => post.frontmatter?.category?.includes(category.name))
+      return {
+      params: {slug: category.slug}, 
+      props: {
+        category: category.name, 
+        works: works
+      }
+    };
+  });
+}
+const {category, works} = Astro.props;
+
+---
+
+<Layout>
+  <Container>
+    <div class="category-hero-text__container">
+      <h1>Work Tagged <em>{category}</em></h1>
+    </div>
+    <div class="category-work__container">
+      {works.map((item) => <WorkItemPreview item={item} hideCategory />)}
+    </div>
+  </Container>
+</Layout>
+
+<style>
+  .category-hero-text__container {
+    padding: 5vh 0;
+  }
+  .category-work__container {
+    padding: var(--space-xl) 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: var(--space-s);
+  }
+</style>

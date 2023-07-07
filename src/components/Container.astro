@@ -1,0 +1,31 @@
+---
+const { narrow, bottomPadding, topPadding, flow } = Astro.props;
+---
+
+<style>
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: var(--container-max-width, 960px);
+    padding: var(--container-padding, 1rem);
+  }
+  .container--narrow {
+    max-width: var(--container-max-width-narrow, 640px);
+  }
+  .container--top-padding {
+    padding-top: var(--container-padding-top, var(--space-xl));
+  }
+  .container--bottom-padding {
+    padding-bottom: var(--container-padding-bottom, var(--space-xl));
+  }
+</style>
+
+<div
+  class={`container ${narrow ? `container--narrow` : ``} ${
+    bottomPadding ? `container--bottom-padding` : ``
+  } ${topPadding ? `container--top-padding` : ``}
+  ${flow ? `flow` : ``}
+  `}
+>
+  <slot />
+</div>

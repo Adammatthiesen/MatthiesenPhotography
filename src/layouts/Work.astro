@@ -1,0 +1,67 @@
+---
+import Layout from "./Page.astro";
+import Container from "../components/Container.astro";
+import { slugify } from "../utils/helpers";
+
+const { frontmatter } = Astro.props;
+---
+
+<style>
+  .work-content__hero {
+    padding: var(--space-m) 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .work-content__hero h1 {
+    margin: var(--space-xs) 0 0 0;
+  }
+  .work-content__hero img {
+    border-radius: var(--theme-img-border-radius);
+  }
+  .work-content__category {
+    width: fit-content;
+    margin: 0 0 var(--space-xs) 0;
+    font-style: italic;
+    border-radius: 2rem;
+  }
+  .work-content__category a {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .work-content__category a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+</style>
+
+<Layout seo={frontmatter} backToHome>
+  <Container narrow bottomPadding>
+    <article class="work-content__article">
+      <div class="work-content__hero">
+        {
+          frontmatter.image && (
+            <img
+              loading="eager"
+              src={frontmatter.image}
+              alt={frontmatter.alt}
+            />
+          )
+        }
+        {frontmatter.title && <h1>{frontmatter.title}</h1>}
+        {
+          frontmatter.category && (
+            <p class="work-content__category">
+              <a href={`/category/${slugify(frontmatter.category)}`}>
+                {frontmatter.category}
+              </a>
+            </p>
+          )
+        }
+      </div>
+      <div class="flow">
+        <slot />
+      </div>
+    </article>
+  </Container>
+</Layout>

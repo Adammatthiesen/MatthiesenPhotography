@@ -1,0 +1,48 @@
+---
+import { profile } from '../data/profile';
+import Container from './Container.astro';
+import ProfilePhoto from './ProfilePhoto.astro';
+import Button from './Button.astro';
+---
+
+<style>
+  .home-top__container {
+    padding: var(--space-xl) 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-m);
+    place-items: center;
+    border-bottom: 1px solid var(--theme-on-background--light);
+  }
+  .profile__bio {
+    margin-top: var(--space-xs);
+  }
+
+  .home-profile__btns {
+    margin: 1rem 0;
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+
+  @media (max-width: 768px) {
+    .home-top__container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<Container>
+  <header class="home-top__container">
+    <ProfilePhoto />
+    <div class="profile__text">
+      <h1>{profile.name}</h1>
+      <p><em>{profile.title}</em></p>
+      <p class="profile__bio">{profile.bio}</p>
+      <div class="home-profile__btns">
+        <Button href="/contact">Contact Me</Button>
+        <Button href="/about  " outlined>About Me</Button>
+      </div>
+    </div>
+  </header>
+</Container>

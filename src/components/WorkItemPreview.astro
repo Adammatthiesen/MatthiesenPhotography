@@ -1,0 +1,51 @@
+---
+const { item, hideCategory } = Astro.props;
+---
+
+<style>
+  .work-item__container a {
+    text-decoration: none;
+  }
+  .work-item__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid var(--theme-on-background--light);
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .work-item__container:hover .work-item__img {
+    transform: scale(0.98);
+    border-radius: 0;
+  }
+  .work-item__img {
+    border-radius: var(--theme-img-border-radius);
+    transition: all 0.3s ease-in-out;
+  }
+  .work-item__title {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .work-item__category {
+    margin: 0;
+    font-size: var(--step--2);
+    font-weight: 400;
+  }
+</style>
+
+<div class="work-item__container">
+  <a href={item.url}>
+    <img class="work-item__img" src={item.frontmatter.image} alt="" />
+    <h2 class="work-item__title">{item.frontmatter.title}</h2>
+    {
+      item.frontmatter.category && !hideCategory && (
+        <p class="work-item__category">
+          <em>{item.frontmatter.category}</em>
+        </p>
+      )
+    }
+  </a>
+</div>
